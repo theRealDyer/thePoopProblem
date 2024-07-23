@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://do6gyi2668a27"]
+
+[ext_resource type="Script" path="res://scenes/playerSnail.gd" id="1_vwejh"]
+[ext_resource type="Texture2D" uid="uid://dykknwf4smj7" path="res://art/snailPlayer.aseprite" id="1_yrwd0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkmfq"]
+size = Vector2(38, 28)
+
+[node name="playerSnail" type="CharacterBody2D"]
+position = Vector2(60, 35)
+script = ExtResource("1_vwejh")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_yrwd0")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jkmfq")

@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://d01bw8vvcixn"]
+
+[ext_resource type="Texture2D" uid="uid://c44gyvapvia76" path="res://art/background.aseprite" id="1_8xvws"]
+[ext_resource type="Texture2D" uid="uid://dvgcv00gpd608" path="res://art/foreground.aseprite" id="2_ab0rx"]
+[ext_resource type="PackedScene" uid="uid://do6gyi2668a27" path="res://scenes/playerSnail.tscn" id="3_3g28k"]
+[ext_resource type="PackedScene" uid="uid://krr2ni2fhnm0" path="res://scenes/enemyButt.tscn" id="4_7wfhd"]
+[ext_resource type="Texture2D" uid="uid://df71y3428tdfq" path="res://art/midground.aseprite" id="5_ouxwc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ama4e"]
+size = Vector2(640, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkmlc"]
+size = Vector2(26, 178)
+
+[node name="level1" type="Node2D"]
+position = Vector2(160, 0)
+
+[node name="foreground" type="Sprite2D" parent="."]
+position = Vector2(160, 89)
+texture = ExtResource("2_ab0rx")
+
+[node name="floor_and_walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor_and_walls"]
+position = Vector2(160, 164)
+shape = SubResource("RectangleShape2D_ama4e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-149, 87)
+shape = SubResource("RectangleShape2D_tkmlc")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(472, 88)
+shape = SubResource("RectangleShape2D_tkmlc")
+
+[node name="playerSnail" parent="." instance=ExtResource("3_3g28k")]
+position = Vector2(152, 136)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="playerSnail"]
+position = Vector2(0, -47)
+remote_path = NodePath("../../Camera2D")
+
+[node name="enemyButt" parent="." instance=ExtResource("4_7wfhd")]
+position = Vector2(152, 89)
+speed = 30
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(152, 89)
+process_callback = 0
+limit_left = 0
+limit_right = 640
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_top_margin = 1.0
+drag_bottom_margin = 1.0
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="background" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(160, 0)
+motion_scale = Vector2(0.5, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/background"]
+position = Vector2(-160, -1)
+texture = ExtResource("1_8xvws")
+centered = false
+
+[node name="midground" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(160, 0)
+motion_scale = Vector2(0.8, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/midground"]
+position = Vector2(-160, -1)
+texture = ExtResource("5_ouxwc")
+centered = false
